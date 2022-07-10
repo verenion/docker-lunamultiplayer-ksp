@@ -1,19 +1,6 @@
 #!/bin/bash
-echo "---Container under construction! Sleep zZzZz...---"
-sleep infinity
-
 LAT_V="$(wget -qO- https://api.github.com/repos/LunaMultiplayer/LunaMultiplayer/releases/latest | jq -r '.tag_name')"
 CUR_V="$(find ${DATA_DIR} -name "LMP-v*" 2>/dev/null | cut -d '-' -f2 | sed 's/v//g')"
-
-if [ -z "${LMP_V}" ]; then
-  echo "---No Luna Multiplayer version set, falling back to 'stable'!---"
-elif [ "${LMP_V}" == "latest" ]; then
-  LMP_V="Release"
-elif [ "${LMP_V}" == "nightly" ]; then
-  LMP_V="Debug"
-else
-  echo "---Luna Multiplayer version malformed, falling back to 'stable'!---"
-fi
 
 if [ -z $LAT_V ]; then
   if [ -z $CUR_V ]; then
@@ -23,6 +10,16 @@ if [ -z $LAT_V ]; then
     echo "---Can't get latest version of Luna Multiplayer, falling back to v${CUR_V}---"
     LAT_V=$CUR_V
   fi
+fi
+
+if [ -z "${LMP_V}" ]; then
+  echo "---No Luna Multiplayer version set, falling back to 'stable'!---"
+elif [ "${LMP_V}" == "latest" ]; then
+  LMP_V="Release"
+elif [ "${LMP_V}" == "nightly" ]; then
+  LMP_V="Debug"
+else
+  echo "---Luna Multiplayer version malformed, falling back to 'stable'!---"
 fi
 
 echo "---Version Check---"
