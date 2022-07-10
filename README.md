@@ -27,7 +27,7 @@ docker run --name KerbalSpaceProgram-LMP -d \
 	--env 'GID=100' \
 	--env 'DATA_PERM=770' \
 	--env 'UMASK=0000' \
-	--volume /path/to/lunarmultiplayer:/lunarmultiplayer \
+	--volume /path/to/lunamultiplayer:/lunamultiplayer \
 	ich777/lunamultiplayer-ksp
 ```
 
