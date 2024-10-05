@@ -1,5 +1,11 @@
 #!/bin/bash
-LAT_V="$(wget -qO- https://api.github.com/repos/LunaMultiplayer/LunaMultiplayer/releases/latest | jq -r '.tag_name')"
+
+if [ -z "${VERSION_OVERRIDE}" ]; then
+  echo "---No Luna override version set, falling back to 'latest'!---"
+  VERSION_OVERRIDE="latest"  
+fi
+
+LAT_V="$(wget -qO- https://api.github.com/repos/LunaMultiplayer/LunaMultiplayer/releases/tags/${VERSION_OVERRIDE} | jq -r '.tag_name')"
 CUR_V="$(find ${DATA_DIR} -name "LMP-v*" 2>/dev/null | cut -d '-' -f2 | sed 's/v//g')"
 
 if [ -z $LAT_V ]; then
